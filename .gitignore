@@ -1,0 +1,17 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+
+# Python virtual environments and caches
+venv/
+env/
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
+.gemini/
+scratch/

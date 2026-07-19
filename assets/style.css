@@ -1,0 +1,854 @@
+/* Import modern typography from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+/* --- CSS VARIABLE DESIGN SYSTEM --- */
+:root {
+    --bg-main: #09090b;             /* Zinc-950 (Obsidian Dark) */
+    --bg-sidebar: #0c0c0e;          /* Obsidian Sidebar Dark */
+    --bg-card: rgba(24, 24, 27, 0.48); /* Card Glass Overlay */
+    --border-color: rgba(255, 255, 255, 0.08); /* Semi-transparent border */
+    
+    /* Premium Palette Accents */
+    --primary-accent: #6366f1;       /* Indigo-500 */
+    --primary-hover: #4f46e5;        /* Indigo-600 */
+    --secondary-accent: #a855f7;     /* Purple-500 */
+    --secondary-hover: #9333ea;      /* Purple-600 */
+    
+    /* Typography Contrasts */
+    --text-primary: #f4f4f5;         /* Zinc-100 */
+    --text-secondary: #a1a1aa;       /* Zinc-400 */
+    --text-muted: #71717a;           /* Zinc-500 */
+    --text-white: #ffffff;
+    
+    /* Alert Status Colors */
+    --success: #10b981;              /* Emerald-500 */
+    --danger: #ef4444;               /* Red-500 */
+    --warning: #fbbf24;              /* Amber-400 */
+}
+
+/* --- KEYFRAMES --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes pulseGlow {
+    0% {
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(99, 102, 241, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+    }
+}
+
+/* --- GLOBAL APP OVERRIDES --- */
+.stApp {
+    background-color: var(--bg-main) !important;
+    background-image: 
+        radial-gradient(circle at 20% 10%, rgba(99, 102, 241, 0.08) 0%, rgba(0, 0, 0, 0) 45%),
+        radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.05) 0%, rgba(0, 0, 0, 0) 45%) !important;
+    color: var(--text-primary) !important;
+    font-family: 'Outfit', sans-serif !important;
+}
+
+/* Responsive Centering for Content Columns */
+div[data-testid="stMainBlockContainer"] {
+    max-width: 1200px !important;
+    padding: 3rem 2.5rem !important;
+    margin: 0 auto !important;
+}
+
+@media (max-width: 768px) {
+    div[data-testid="stMainBlockContainer"] {
+        padding: 1.5rem 1rem !important;
+    }
+}
+
+/* Typography Hierarchy Scale */
+h1 {
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 2.25rem !important;
+    color: var(--text-white) !important;
+    letter-spacing: -0.03em !important;
+    margin-bottom: 0.5rem !important;
+}
+
+h2 {
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 1.6rem !important;
+    color: var(--text-white) !important;
+    letter-spacing: -0.02em !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+h3 {
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 1.25rem !important;
+    color: var(--text-white) !important;
+    letter-spacing: -0.01em !important;
+}
+
+h4, h5, h6 {
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 600 !important;
+    color: var(--text-white) !important;
+}
+
+/* App Header block */
+[data-testid="stHeader"] {
+    background-color: rgba(9, 9, 11, 0.5) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* --- SIDEBAR OVERRIDES --- */
+section[data-testid="stSidebar"] {
+    background-color: #0b0b0f !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.06) !important;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+section[data-testid="stSidebar"] .stRadio > label {
+    color: #94a3b8 !important;
+    font-weight: 700 !important;
+    font-size: 0.75rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    margin-bottom: 1rem !important;
+    padding-left: 0.5rem !important;
+}
+
+/* Hide default radio selector circles specifically while keeping option text visible */
+section[data-testid="stSidebar"] div[role="radiogroup"] [role="presentation"],
+section[data-testid="stSidebar"] div[role="radiogroup"] label > div:first-of-type:not(:has([data-testid="stMarkdownContainer"])) {
+    display: none !important;
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label div[data-testid="stMarkdownContainer"] p {
+    color: inherit !important;
+    margin: 0 !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.01em !important;
+    font-family: 'Outfit', sans-serif !important;
+}
+
+/* Radio buttons list transformed into sleek sidebar nav tabs */
+section[data-testid="stSidebar"] div[role="radiogroup"] {
+    gap: 0.45rem !important;
+    padding: 0.25rem !important;
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label {
+    display: flex !important;
+    align-items: center !important;
+    position: relative !important;
+    background-color: rgba(255, 255, 255, 0.015) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: 10px !important;
+    padding: 0.65rem 1rem 0.65rem 1.35rem !important;
+    margin: 0 !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    cursor: pointer !important;
+    width: 100% !important;
+    color: #94a3b8 !important; /* Muted slate text by default */
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
+    background-color: rgba(255, 255, 255, 0.035) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    color: #ffffff !important;
+    transform: translateX(4px) !important;
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.18) 0%, rgba(168, 85, 247, 0.1) 100%) !important;
+    border-color: rgba(99, 102, 241, 0.45) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15) !important;
+}
+
+/* Sleek active page indicator line on the left edge */
+section[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked)::before {
+    content: "" !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 15% !important;
+    height: 70% !important;
+    width: 3.5px !important;
+    background-color: var(--primary-accent) !important;
+    border-radius: 0 4px 4px 0 !important;
+    box-shadow: 0 0 12px var(--primary-accent) !important;
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) div[data-testid="stWidgetLabel"] {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+
+/* Hide line breaks in radiogroup */
+section[data-testid="stSidebar"] div[role="radiogroup"] br {
+    display: none !important;
+}
+
+/* Sidebar User Profile Card */
+.sidebar-profile {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    padding: 1rem !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: 16px !important;
+    margin: 1.25rem 0.5rem 0.5rem 0.5rem !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.3s ease !important;
+}
+
+.sidebar-profile:hover {
+    border-color: rgba(99, 102, 241, 0.2) !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+}
+
+.sidebar-avatar {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    border: 2px solid rgba(99, 102, 241, 0.5) !important;
+    object-fit: cover !important;
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.25) !important;
+}
+
+.sidebar-profile-info {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.sidebar-profile-name {
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    color: #ffffff !important;
+    font-family: 'Outfit', sans-serif !important;
+}
+
+.sidebar-profile-role {
+    font-size: 0.72rem !important;
+    color: #94a3b8 !important;
+    font-family: 'Outfit', sans-serif !important;
+    margin-top: 1px !important;
+}
+
+/* Sidebar Statistics Cards */
+.sidebar-stats-container {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.6rem !important;
+    margin: 1rem 0.5rem !important;
+}
+
+.sidebar-stat-card {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.04) !important;
+    border-radius: 12px !important;
+    padding: 0.65rem 0.5rem !important;
+    text-align: center !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: default !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+}
+
+.sidebar-stat-card:hover {
+    background: rgba(99, 102, 241, 0.08) !important;
+    border-color: rgba(99, 102, 241, 0.3) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1) !important;
+}
+
+.sidebar-stat-value {
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    font-family: 'Outfit', sans-serif !important;
+}
+
+.sidebar-stat-label {
+    font-size: 0.68rem !important;
+    color: #94a3b8 !important;
+    margin-top: 0.2rem !important;
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.03em !important;
+    font-family: 'Outfit', sans-serif !important;
+}
+
+/* --- BUTTONS --- */
+.stButton > button {
+    background: linear-gradient(135deg, rgba(39, 39, 42, 0.6), rgba(24, 24, 27, 0.8)) !important;
+    color: #e2e8f0 !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 10px !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 0.85rem !important;
+    padding: 0.5rem 1rem !important;
+    /* Ultra-smooth SaaS ease transition */
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+.stButton > button:hover {
+    background: linear-gradient(135deg, #6366f1, #4f46e5) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3) !important;
+    transform: translateY(-2px) !important;
+}
+
+.stButton > button:active {
+    transform: translateY(0) scale(0.96) !important;
+}
+
+/* Make heart button red-themed when favorited */
+.stButton > button:has(span:contains("❤️")),
+.stButton > button:contains("❤️") {
+    border-color: rgba(239, 68, 68, 0.2) !important;
+}
+.stButton > button:has(span:contains("❤️")):hover,
+.stButton > button:contains("❤️"):hover {
+    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3) !important;
+}
+
+/* Primary/Accent Buttons (Apply filters, Save) */
+.stButton > button[kind="primary"],
+.stButton > button.type-primary {
+    background: linear-gradient(135deg, #6366f1, #a855f7) !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2) !important;
+}
+
+.stButton > button[kind="primary"]:hover,
+.stButton > button.type-primary:hover {
+    background: linear-gradient(135deg, #4f46e5, #9333ea) !important;
+    box-shadow: 0 6px 22px rgba(99, 102, 241, 0.4) !important;
+    animation: pulseGlow 1.2s infinite !important;
+}
+
+/* --- GLASSMORPHISM MOVIE CARDS --- */
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    background-color: rgba(24, 24, 27, 0.45) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25) !important;
+    padding: 0.75rem !important;
+    /* Subtle fadeInUp animation on render */
+    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+    /* Smooth CSS transition rules for scale and glow */
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important,
+                border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important,
+                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+div[data-testid="stVerticalBlockBorderWrapper"]:hover {
+    transform: translateY(-6px) scale(1.01) !important;
+    border-color: rgba(99, 102, 241, 0.45) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(99, 102, 241, 0.12) !important;
+}
+
+/* Movie Poster Image and Rating Overlay */
+.movie-poster-container {
+    position: relative !important;
+    width: 100% !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    margin-bottom: 0.75rem !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+    /* Premium Shimmer Loading Placeholder Background */
+    background: linear-gradient(90deg, rgba(24, 24, 27, 0.6) 25%, rgba(39, 39, 42, 0.8) 50%, rgba(24, 24, 27, 0.6) 75%) !important;
+    background-size: 200% 100% !important;
+    animation: shimmer 1.5s infinite linear !important;
+}
+
+.movie-poster {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 2/3 !important;
+    object-fit: cover !important;
+    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    display: block !important;
+}
+
+.movie-poster-container:hover .movie-poster {
+    transform: scale(1.05) !important;
+}
+
+.movie-rating-badge {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    background: rgba(9, 9, 11, 0.8) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    color: #fbbf24 !important; /* Gold rating text */
+    padding: 0.3rem 0.55rem !important;
+    border-radius: 8px !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+    z-index: 5 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 2px !important;
+}
+
+/* Title and typography in card */
+div[data-testid="stVerticalBlockBorderWrapper"] p,
+div[data-testid="stVerticalBlockBorderWrapper"] span {
+    font-family: 'Outfit', sans-serif !important;
+}
+
+/* --- DASHBOARD METRICS --- */
+div[data-testid="stMetric"] {
+    background-color: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.04) !important;
+    border-radius: 14px !important;
+    padding: 0.85rem 1.1rem !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+    transition: border-color 0.2s ease !important;
+}
+
+div[data-testid="stMetric"]:hover {
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+div[data-testid="stMetricLabel"] {
+    font-size: 0.75rem !important;
+    color: #94a3b8 !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+}
+
+div[data-testid="stMetricValue"] {
+    font-size: 1.75rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    font-family: 'Outfit', sans-serif !important;
+    margin-top: 0.25rem !important;
+}
+
+div[data-testid="stMetricDelta"] {
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+}
+
+/* --- INPUTS & CONTROLS --- */
+div[data-testid="stSelectbox"] > div, 
+div[data-testid="stTextInput"] > div,
+div[data-testid="stNumberInput"] > div {
+    background-color: rgba(24, 24, 27, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.07) !important;
+    border-radius: 12px !important;
+    color: #ffffff !important;
+    transition: all 0.25s ease !important;
+}
+
+div[data-testid="stSelectbox"] > div:hover, 
+div[data-testid="stTextInput"] > div:hover {
+    border-color: rgba(99, 102, 241, 0.4) !important;
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.12) !important;
+}
+
+div[data-testid="stSelectbox"] select,
+div[data-testid="stTextInput"] input {
+    color: #ffffff !important;
+    font-family: 'Outfit', sans-serif !important;
+}
+
+/* Custom Search Icon inside Text Inputs */
+div[data-testid="stTextInput"] input {
+    padding-left: 2.75rem !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: 1rem center !important;
+}
+
+/* Custom loading spinner color and animation */
+div[data-testid="stSpinner"] > div {
+    border-top-color: #6366f1 !important;
+    border-right-color: rgba(99, 102, 241, 0.1) !important;
+    border-bottom-color: rgba(99, 102, 241, 0.1) !important;
+    border-left-color: rgba(99, 102, 241, 0.1) !important;
+    animation-duration: 0.75s !important;
+}
+
+/* Slider customized color */
+div[data-testid="stSlider"] [role="slider"] {
+    background-color: #6366f1 !important;
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 8px rgba(99, 102, 241, 0.5) !important;
+}
+div[data-testid="stSlider"] [data-testid="stSliderTrack"] > div {
+    background-color: #6366f1 !important;
+}
+
+/* --- TABS --- */
+div[data-testid="stTabs"] [role="tablist"] {
+    gap: 0.4rem !important;
+    background-color: rgba(255, 255, 255, 0.02) !important;
+    padding: 0.3rem !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+div[data-testid="stTabs"] [role="tab"] {
+    background-color: transparent !important;
+    border-radius: 8px !important;
+    color: #94a3b8 !important;
+    padding: 0.55rem 1.35rem !important;
+    font-weight: 500 !important;
+    font-size: 0.85rem !important;
+    transition: all 0.2s ease !important;
+    border: none !important;
+}
+
+div[data-testid="stTabs"] [role="tab"]:hover {
+    color: #ffffff !important;
+}
+
+div[data-testid="stTabs"] [role="tab"] p {
+    color: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    margin: 0 !important;
+}
+
+div[data-testid="stTabs"] [role="tab"][aria-selected="true"] {
+    background-color: rgba(99, 102, 241, 0.15) !important;
+    color: #818cf8 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* --- EXPANDERS --- */
+details[data-testid="stExpander"] {
+    background-color: rgba(24, 24, 27, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 14px !important;
+    margin-bottom: 0.85rem !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+    overflow: hidden !important;
+    transition: border-color 0.25s ease !important;
+}
+
+details[data-testid="stExpander"]:hover {
+    border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+details[data-testid="stExpander"] summary {
+    font-weight: 600 !important;
+    color: #ffffff !important;
+    padding: 0.85rem 1.1rem !important;
+    background-color: rgba(255, 255, 255, 0.01) !important;
+}
+
+details[data-testid="stExpander"] [data-testid="stVerticalBlock"] {
+    padding: 1rem !important;
+}
+
+/* --- DETAILS VIEW METRIC PROGRESS BAR --- */
+div[data-testid="stProgress"] > div > div > div > div {
+    background-image: linear-gradient(90deg, #6366f1, #a855f7) !important;
+    border-radius: 6px !important;
+}
+div[data-testid="stProgress"] > div {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    border-radius: 6px !important;
+    height: 10px !important;
+}
+
+/* --- EMPTY STATE MARKUP styling --- */
+.empty-state-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 3.5rem 2rem !important;
+    text-align: center !important;
+    background-color: rgba(24, 24, 27, 0.3) !important;
+    border: 1px dashed rgba(255, 255, 255, 0.1) !important;
+    border-radius: 16px !important;
+    margin: 2rem 0 !important;
+}
+
+.empty-state-icon {
+    font-size: 3.5rem !important;
+    margin-bottom: 1.25rem !important;
+}
+
+.empty-state-title {
+    font-size: 1.35rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin-bottom: 0.6rem !important;
+    font-family: 'Outfit', sans-serif !important;
+}
+
+.empty-state-message {
+    font-size: 0.95rem !important;
+    color: #94a3b8 !important;
+    max-width: 440px !important;
+    line-height: 1.5 !important;
+    font-family: 'Outfit', sans-serif !important;
+}
+
+/* Modern styling for horizontal rules */
+hr {
+    border-color: rgba(255, 255, 255, 0.06) !important;
+    margin: 1.75rem 0 !important;
+}
+
+/* Image rounding global fallback */
+img {
+    border-radius: 12px !important;
+}
+
+/* --- EQUAL CARD HEIGHT GRID SYSTEM --- */
+div[data-testid="column"] {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+div[data-testid="column"] > div {
+    flex-grow: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-grow: 1 !important;
+    justify-content: space-between !important;
+    height: 100% !important;
+}
+
+/* Card typography & alignment limits for clean visual grids */
+div[data-testid="stVerticalBlockBorderWrapper"] p strong {
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    color: #ffffff !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    height: 2.6rem !important; /* Forces uniform title height */
+    line-height: 1.3rem !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.25rem !important;
+}
+
+div[data-testid="stVerticalBlockBorderWrapper"] div[data-testid="stCaptionContainer"] {
+    font-size: 0.8rem !important;
+    color: #94a3b8 !important;
+    height: 1.3rem !important; /* Forces uniform metadata height */
+    line-height: 1.3rem !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    margin-bottom: 0.75rem !important;
+}
+
+/* --- CUSTOM SCROLLBARS --- */
+::-webkit-scrollbar {
+    width: 6px !important;
+    height: 6px !important;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-main) !important;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-radius: 99px !important;
+    transition: background 0.3s ease !important;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-accent) !important;
+}
+
+/* --- STYLED ANCHOR LINKS --- */
+a {
+    color: var(--primary-accent) !important;
+    text-decoration: none !important;
+    transition: color 0.2s ease !important;
+}
+a:hover {
+    color: var(--secondary-accent) !important;
+    text-decoration: underline !important;
+}
+
+/* --- NOTIFICATION & ALERT ALIGNMENTS --- */
+div[data-testid="stNotification"] {
+    background-color: rgba(24, 24, 27, 0.5) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* --- FEATURED DASHBOARD HERO BANNER (NETFLIX STYLE) --- */
+.featured-hero-banner {
+    background-size: cover !important;
+    background-position: center 15% !important;
+    height: 380px !important;
+    border-radius: 20px !important;
+    margin-bottom: 1rem !important;
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    overflow: hidden !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+    animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+.featured-hero-content {
+    padding: 2.5rem !important;
+    max-width: 650px !important;
+    z-index: 2 !important;
+}
+
+.featured-tag {
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    color: #818cf8 !important; /* Indigo accent */
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    display: inline-block !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.featured-title {
+    font-size: 2.8rem !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.04em !important;
+    margin-bottom: 0.75rem !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8) !important;
+}
+
+.featured-meta {
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    color: #cbd5e1 !important;
+    margin-bottom: 1rem !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8) !important;
+}
+
+.featured-overview {
+    font-size: 0.95rem !important;
+    color: #a1a1aa !important; /* Zinc text */
+    line-height: 1.5 !important;
+    margin-bottom: 0 !important;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* --- MOVIE DETAILS HERO BANNER (CINEMATIC) --- */
+.movie-hero-banner {
+    background-size: cover !important;
+    background-position: center 20% !important;
+    height: 380px !important;
+    border-radius: 20px !important;
+    margin-bottom: 2rem !important;
+    position: relative !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    overflow: hidden !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+    animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+.movie-hero-content {
+    background: linear-gradient(180deg, rgba(9, 9, 11, 0) 0%, rgba(9, 9, 11, 0.95) 75%, #09090b 100%) !important;
+    padding: 3rem 2rem 1.5rem 2rem !important;
+    width: 100% !important;
+}
+
+.hero-title {
+    font-size: 2.6rem !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.6) !important;
+    margin-bottom: 0.5rem !important;
+    letter-spacing: -0.04em !important;
+}
+
+.hero-tagline {
+    font-size: 1.1rem !important;
+    font-style: italic !important;
+    color: #a855f7 !important; /* Purple accent */
+    text-shadow: 0 1px 5px rgba(0,0,0,0.6) !important;
+    margin-bottom: 1rem !important;
+}
+
+.hero-overview {
+    font-size: 0.95rem !important;
+    color: #e4e4e7 !important;
+    line-height: 1.5 !important;
+    max-width: 850px !important;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.6) !important;
+}
+
+.hero-rating-badge {
+    background: rgba(251, 191, 36, 0.15) !important;
+    border: 1px solid rgba(251, 191, 36, 0.3) !important;
+    color: #fbbf24 !important;
+    padding: 0.35rem 0.65rem !important;
+    border-radius: 8px !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 0.75rem !important;
+    display: inline-block !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25) !important;
+}
+
+/* Limit size of streaming providers logos */
+div[data-testid="stExpander"] img {
+    max-height: 45px !important;
+    width: auto !important;
+    border-radius: 8px !important;
+    object-fit: contain !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+}
